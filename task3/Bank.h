@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <map>
 #include <ctime>
 
 class Client;
@@ -15,22 +16,20 @@ private:
     std::vector<std::shared_ptr<Client>> clients;
     std::vector<std::shared_ptr<Account>> accounts;
     
-    // Параметры банка
     double debitInterestRate;
-    std::map<double, double> depositInterestRates; // сумма -> ставка
+    std::map<double, double> depositInterestRates;
     double creditCommissionRate;
     double creditLimit;
 
     std::string generateAccountId();
+    double getDepositRate(double amount) const;
 
 public:
     explicit Bank(const std::string& bankName);
     
-    // Управление клиентами
     std::shared_ptr<Client> registerClient(const std::string& firstName,
                                          const std::string& lastName);
     
-    // Создание счетов разных типов
     std::shared_ptr<Account> createDebitAccount(std::shared_ptr<Client> client,
                                              double initialAmount = 0.0);
                                              
@@ -41,9 +40,6 @@ public:
     std::shared_ptr<Account> createCreditAccount(std::shared_ptr<Client> client,
                                               double initialAmount = 0.0);
     
-    // Начисление процентов/комиссий
     void processDailyPayments();
 };
-
-#endif 
-// BANK_H
+#endif
