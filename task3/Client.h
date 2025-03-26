@@ -16,7 +16,7 @@ private:
     std::optional<std::string> passportData;
     std::optional<std::string> address;
     std::vector<std::shared_ptr<Account>> accounts;
-    
+
 public:
     Client(const std::string& fName, const std::string& lName);
     
@@ -24,6 +24,7 @@ public:
     std::string getFullName() const;
     std::optional<std::string> getPassportData() const;
     void setPassportData(const std::string& data);
+    std::optional<std::string> getAddress() const;
+    void setAddress(const std::string& addr);
 };
-
-#endif // CLIENT_H
+#endif
