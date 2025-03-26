@@ -4,7 +4,6 @@
 #include "Account.h"
 #include <ctime>
 
-// Депозитный счет с ограниченным доступом до даты окончания
 class DepositAccount : public Account {
 private:
     double interestRate;
@@ -16,15 +15,9 @@ public:
                  std::shared_ptr<Bank> accBank,
                  double rate, 
                  time_t expDate);
-
-    // Запрещаем снятие до окончания срока депозита
+    
     void withdraw(double amount) override;
-    
-    // Начисление процентов
     void applyInterest();
-    
-    // Проверка истек ли срок депозита
     bool isExpired() const;
 };
-
-#endif // DEPOSIT_ACCOUNT_H
+#endif
