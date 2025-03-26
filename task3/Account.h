@@ -8,23 +8,16 @@
 class Client;
 class Bank;
 
-enum class AccountType {
-    DEBIT,
-    DEPOSIT,
-    CREDIT
-};
-
 class Account {
 protected:
     std::string id;
     double balance;
     std::shared_ptr<Client> owner;
     std::shared_ptr<Bank> bank;
-    AccountType type;
-    
+
 public:
     Account(const std::string& accId, std::shared_ptr<Client> accOwner, 
-           std::shared_ptr<Bank> accBank, AccountType accType);
+           std::shared_ptr<Bank> accBank);
     virtual ~Account() = default;
     
     virtual void deposit(double amount);
@@ -33,12 +26,10 @@ public:
     
     double getBalance() const;
     std::string getId() const;
-    AccountType getType() const;
     std::shared_ptr<Client> getOwner() const;
     std::shared_ptr<Bank> getBank() const;
     
 protected:
     void setBalance(double newBalance);
 };
-
-#endif // ACCOUNT_H
+#endif
