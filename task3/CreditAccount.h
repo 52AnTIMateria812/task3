@@ -3,7 +3,6 @@
 
 #include "Account.h"
 
-// Кредитный счет с лимитом и комиссией
 class CreditAccount : public Account {
 private:
     double creditLimit;
@@ -15,12 +14,8 @@ public:
                 std::shared_ptr<Bank> accBank,
                 double limit,
                 double rate);
-
-    // Разрешаем уходить в минус в пределах лимита
-    void withdraw(double amount) override;
     
-    // Начисление комиссии на отрицательный баланс
+    void withdraw(double amount) override;
     void applyCommission();
 };
-
-#endif // CREDIT_ACCOUNT_H
+#endif
