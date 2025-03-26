@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <ctime>
 
-class CentralBank;
 class Client;
 class Account;
 
@@ -14,22 +14,36 @@ private:
     std::string name;
     std::vector<std::shared_ptr<Client>> clients;
     std::vector<std::shared_ptr<Account>> accounts;
-    std::shared_ptr<CentralBank> centralBank;
     
+    // Параметры банка
     double debitInterestRate;
+    std::map<double, double> depositInterestRates; // сумма -> ставка
     double creditCommissionRate;
     double creditLimit;
-    
+
     std::string generateAccountId();
-    
+
 public:
-    Bank(const std::string& bankName, std::shared_ptr<CentralBank> cb);
+    explicit Bank(const std::string& bankName);
     
-    std::shared_ptr<Client> registerClient(const std::string& firstName, 
+    // Управление клиентами
+    std::shared_ptr<Client> registerClient(const std::string& firstName,
                                          const std::string& lastName);
-    std::shared_ptr<Account> createAccount(AccountType type, 
-                                         std::shared_ptr<Client> client,
-                                         double initialAmount = 0.0);
+    
+    // Создание счетов разных типов
+    std::shared_ptr<Account> createDebitAccount(std::shared_ptr<Client> client,
+                                             double initialAmount = 0.0);
+                                             
+    std::shared_ptr<Account> createDepositAccount(std::shared_ptr<Client> client,
+                                               double initialAmount,
+                                               time_t expirationDate);
+                                               
+    std::shared_ptr<Account> createCreditAccount(std::shared_ptr<Client> client,
+                                              double initialAmount = 0.0);
+    
+    // Начисление процентов/комиссий
+    void processDailyPayments();
 };
 
-#endif // BANK_H
+#endif 
+// BANK_H
