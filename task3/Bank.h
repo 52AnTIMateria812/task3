@@ -10,7 +10,7 @@
 class Client;
 class Account;
 
-class Bank : public std::enable_shared_from_this<Bank> {
+class Bank : public std::enable_shared_from_this<Bank> {     //шаблонный класс из стандартной библиотеки C++, который позволяет объекту безопасно возвращать shared_ptr на самого себя.         
 private:
     std::string name;
     std::vector<std::shared_ptr<Client>> clients;
@@ -27,7 +27,7 @@ private:
 public:
     explicit Bank(const std::string& bankName);
     
-    std::shared_ptr<Client> registerClient(const std::string& firstName,
+    std::shared_ptr<Client> registerClient(const std::string& firstName, //наследники
                                          const std::string& lastName);
     
     std::shared_ptr<Account> createDebitAccount(std::shared_ptr<Client> client,
