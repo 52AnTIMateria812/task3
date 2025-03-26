@@ -18,3 +18,11 @@ std::optional<std::string> Client::getPassportData() const {
 void Client::setPassportData(const std::string& data) {
     passportData = data;
 }
+
+std::optional<std::string> Client::getAddress() const {
+    return address;
+}
+
+void Client::setAddress(const std::string& addr) {
+    address = addr;
+}
